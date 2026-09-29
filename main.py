@@ -20,10 +20,7 @@ def prompt_for_input(promt_text: str, length="YYYY") -> str:
     while True:
         raw_value = input(promt_text)
         try:
-            valid_value = validate_length(raw_value, length)
-            return valid_value
-        except ValueError:
-            print("Please Enter a valid number")
+            return validate_length(raw_value, length)
         except Exception as err:
             print(f"{err.args[0]}")
 
