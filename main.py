@@ -3,6 +3,7 @@ from input_helpers import prompt_for_input
 from planet_data import REFERENCE_DATE, EARTH
 from orbital_math import calculate_orbital_angle, calculate_position
 from plaque_conversion import calculate_plaque_radius
+from visualization import plot_positions
 
 def main():
     loop = True
@@ -30,13 +31,13 @@ def main():
     days_elapsed = (target_date - REFERENCE_DATE).days
     
     print("******************************")
-    print(f"Calculating Earth's orbital angle")
+    print("Calculating Earth's orbital angle")
     print("******************************")
 
     earth_orbit_angle = calculate_orbital_angle(EARTH, days_elapsed)
     
     print("******************************")
-    print(f"Calculating Earth's position on plaque")
+    print("Calculating Earth's position on plaque")
     print("******************************")
 
     earth_radius = calculate_plaque_radius(EARTH.orbit_rank)
@@ -45,6 +46,13 @@ def main():
     print("Days: ", days_elapsed)
     print("Orbital Angle: ", earth_orbit_angle)
     print(f"Orbit Position: {earth_pos}")
+
+
+    print("******************************")
+    print("Rendering visual map")
+    print("******************************")
+
+    plot_positions([("Earth", earth_pos[0], earth_pos[1])])
 
 
 
