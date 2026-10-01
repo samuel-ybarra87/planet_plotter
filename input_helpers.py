@@ -1,3 +1,40 @@
+import os
+
+def prompt_for_output_path() -> str:
+    while True:
+        raw_path = input("Enter output folder path for the STL file: ")
+        if not raw_path:
+            return ""
+        if not os.path.isdir(raw_path):
+            if os.path.isfile(raw_path):
+                print("That's a file, not a directory...")
+                continue
+
+            answer = input("Not a valid path. Create? (Y/N): ")
+            if answer != "Y":
+                print("Exiting")
+                exit(0)
+            else:
+                try:
+                    os.makedirs(raw_path)
+                    return raw_path
+                except FileExistsError:
+                    print("Could not create directory. Try again...")
+        else:
+            print("STL files will be stored here\n")
+            return raw_path
+
+def stage_header(title: str) -> str:
+    banner_top = ""
+    banner_bottom = ""
+    for i in range(0, len(title)):
+        banner_top += "*"
+        banner_bottom += "*"
+
+    print(banner_top)
+    print(title)
+    print(banner_bottom)
+
 def validate_length(value: str, length: str) -> str:
     if "-" in value:
         raise Exception(f"No negative numbers...")
