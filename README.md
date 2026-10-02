@@ -14,9 +14,9 @@ This project is a work in progress, built as a capstone project for [Boot.dev](h
 - [x] Orbital angle calculation (Simplifies to circular orbits for quicker graphing)
 - [x] Plaque-relative radius calculation (rank-based spacing, not true to scale)
 - [x] Cartesian coordinate conversion
-- [x] 2D visulization for debuggging (matplotlib)
-- [ ] 3D mesh generation
-- [ ] STL export
+- [x] 2D visulization for debugging (matplotlib)
+- [x] 3D mesh generation and file export (renders test STL file and exports to user's desired directory)
+- [ ] 3D mesh generation (Full design of Sun and orbit ring with planet marker)
 - [ ] Multi-planet support (Currently Earth only)
 
 ## Design decisions / Simplifications
@@ -24,6 +24,10 @@ This project is a work in progress, built as a capstone project for [Boot.dev](h
 - **Circular orbits**: planets are model as moving at a constant speed around a perfect circle, rather than a true ellipse. This keeps the math simple and is visually indistinguishable at plaque scale
 - **Rank-based spacing**: rather than scaling real AU distances, which would make the inner planets imperceptivly close to one another, each planet's ring is spaced evenly by its order from the sun. (Mercury=1, Venus=2, Earth=3, etc.)
 - **Reference epoch**: positions are calculated relative to J2000 (January 1, 2000), using published mean logitude data as each planet's starting angle.
+
+## Output handling
+
+The script prompts for an output folder path at startup. It works with both native Linux/macOS paths and Windows paths accessed through WSL (e.g. `/mnt/c/Users/yourname/Documents`). If the folder doesn't exist, you'll be asked whether to create it. Leaving the prompt blank saves the STL file in the current working directory.
 
 ## How to run
 
@@ -48,9 +52,9 @@ You'll be prompted for a target year, month, and day. The script will calculate 
 
 ## Roadmap
 
-- Add remaining 8 planets (Pluto IS a planet!)
-- Generate a 3d mesh (disk based + raised orbital rings + planet)
-- Export to STL for slicing in 3D printing software
+- Generate the full plaque mesh (disk base + raised orbital rings + planet markers)
+- Add the remaining planets (Pluto IS a planet!)
+- Multi-planet rendering in both the 2D visualization and the 3D mesh
 
 ## Acknowledgements
 
