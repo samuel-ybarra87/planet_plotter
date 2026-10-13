@@ -7,8 +7,11 @@ def calculate_orbital_angle(planet: Planet, days_elapsed: int) -> float:
 
     return angle
 
-def calculate_position(radius: float, angle_rad: float) -> tuple[float, float]:
+def calculate_position(radius: float, angle_rad: float) -> dict:
     x = radius * math.cos(angle_rad)
     y = radius * math.sin(angle_rad)
 
-    return x,y
+    return {
+        "x": x,
+        "y": y,
+    }

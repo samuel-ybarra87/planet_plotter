@@ -1,6 +1,6 @@
 # Planet Plotter
 
-A Python tool that calculates simplified planetary orbital positions for a given date and (eventually) exports them as a 3D-printable STL model. The model will be a physical plaque showing where the planets were on a meaningful date (birthdays, anniversaries, etc.).
+A Python tool that calculates simplified planetary orbital positions for a given date and exports them as a 3D-printable STL model. The model will be a physical plaque showing where the planets were on a meaningful date (birthdays, anniversaries, etc.).
 
 ## Motivation
 
@@ -16,8 +16,8 @@ This project is a work in progress, built as a capstone project for [Boot.dev](h
 - [x] Cartesian coordinate conversion
 - [x] 2D visulization for debugging (matplotlib)
 - [x] 3D mesh generation and file export (renders test STL file and exports to user's desired directory)
-- [ ] 3D mesh generation (Full design of Sun and orbit ring with planet marker)
-- [ ] Multi-planet support (Currently Earth only)
+- [x] 3D mesh generation (Full design of Sun and orbit ring with planet marker)
+- [x] Multi-planet support
 
 ## Design decisions / Simplifications
 
@@ -34,7 +34,6 @@ The script prompts for an output folder path at startup. It works with both nati
 ### Requirements
 
 - Python 3.x
-- `matplotlib` (for the debug visualization step)
 
 ### Installation
 
@@ -52,9 +51,11 @@ You'll be prompted for a target year, month, and day. The script will calculate 
 
 ## Roadmap
 
-- Generate the full plaque mesh (disk base + raised orbital rings + planet markers)
-- Add the remaining planets (Pluto IS a planet!)
-- Multi-planet rendering in both the 2D visualization and the 3D mesh
+- [x] Generate the full plaque mesh (disk base + raised orbital rings + planet markers)
+- [x] Add the remaining planets (Pluto IS a planet!)
+- [ ] Add raised bevled edges to plaque sides
+- [ ] Add customizeable message to reverse side
+- [ ] Adjust planet spacing to allow larger representations for the gas giants
 
 ## Acknowledgements
 
