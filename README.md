@@ -40,6 +40,7 @@ The script prompts for an output folder path at startup. It works with both nati
 - shapely >= 2.2.0
 - networkx >= 3.7
 - mapbox_earcut >= 2.1.0
+- manifold3d >= 3.5.4
 
 ### Installation
 
@@ -59,7 +60,7 @@ You'll be prompted for directory to store the STL file. Then you'll be prompted 
 
 - [x] Generate the full plaque mesh (disk base + raised orbital rings + planet markers)
 - [x] Add the remaining planets (Pluto IS a planet!)
-- [ ] Add raised bevled edges to plaque sides
+- [x] Add raised bevled edges to plaque sides
 - [ ] Add customizeable message to reverse side
 - [ ] Adjust planet spacing to allow larger representations for the gas giants
 
@@ -70,3 +71,9 @@ Built as a capstone project for Boot.dev
 ## Contributions
 
 Contributions are very much welcome as this is my first mesh generation program.
+
+## License
+
+This project's source code is licensed under the MIT License (see LICENSE).
+The bundled font (assets/fonts/DejaVuSans.ttf) is licensed separately;
+see assets/fonts/LICENSE for details.

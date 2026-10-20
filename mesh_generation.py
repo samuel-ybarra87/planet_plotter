@@ -1,8 +1,11 @@
 import math
 import os
 import trimesh
-from planet_data import PLANETS
+from matplotlib.textpath import TextPath
+from matplotlib.font_manager import FontProperties
+from shapely.geometry import Polygon
 from trimesh import Trimesh
+from planet_data import PLANETS
 from orbital_math import calculate_position, calculate_orbital_angle
 
 # All values are in milimeters
@@ -21,6 +24,10 @@ ORBIT_RING_HEIGHT = 0.2
 
 PLANET_RADIUS = 0.85
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+FONT_PATH = os.path.join(SCRIPT_DIR, "assets", "fonts", "DejaVuSans.ttf")
+FONT = FontProperties(fname=FONT_PATH)
+
 def place_at(mesh: Trimesh, offset=None, height=0.0) -> Trimesh:
     mesh.apply_translation([0,0,(height/2)])
 
@@ -30,8 +37,13 @@ def place_at(mesh: Trimesh, offset=None, height=0.0) -> Trimesh:
     return mesh
 
 def create_base()->Trimesh:
-    origin, xaxis, yaxis, zaxis = [0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]
+    ENGRAVED_DEPTH = 0.25
+    CYLINDER_RADIUS = ORBIT_RING_THICKNESS - 0.25
+    CYLINDER_TOP_ORIGN = BOX_WIDTH - CYLINDER_RADIUS
+    MOVE_XAXIS = (BOX_LENGTH/2) - CYLINDER_RADIUS
+    MOVE_YAXIS = (BOX_WIDTH/2) - CYLINDER_RADIUS
 
+    origin, xaxis, yaxis = [0, 0, 0], [1, 0, 0], [0, 1, 0]
     rotate_90 = trimesh.transformations.rotation_matrix(math.radians(90), yaxis, origin)
     rotate_90_sides = trimesh.transformations.rotation_matrix(math.radians(90), xaxis, origin)
     top = [-1, 1, 0]
@@ -40,14 +52,32 @@ def create_base()->Trimesh:
     right = [-1, -1, 0]
 
     meshes = []
-
     box = place_at(trimesh.creation.box(extents=[BOX_WIDTH, BOX_LENGTH, BOX_HEIGHT]), None, BOX_HEIGHT)
-    meshes.append(box)
+   
 
-    CYLINDER_RADIUS = ORBIT_RING_THICKNESS - 0.25
-    CYLINDER_TOP_ORIGN = BOX_WIDTH - CYLINDER_RADIUS
-    MOVE_XAXIS = (BOX_LENGTH/2) - CYLINDER_RADIUS
-    MOVE_YAXIS = (BOX_WIDTH/2) - CYLINDER_RADIUS
+    # TODO: The following code functions mathematically, however, your printing success might vary.
+    # Use the letter A as a test print before enhancing with customizable messages.
+
+    # text_path = TextPath((0, 0), "A", size=10, prop=FONT)
+
+    # polygons = text_path.to_polygons()
+
+    # # convert every loop to a Polygon first
+    # shapely_polys = [Polygon(p) for p in polygons]
+
+    # # sort by area, descending -> biggest is the outer boundary
+    # shapely_polys.sort(key=lambda p: p.area, reverse=True)
+
+    # outer = shapely_polys[0]
+    # holes = [list(p.exterior.coords) for p in shapely_polys[1:]]
+
+    # letter_polygon = Polygon(outer.exterior.coords, holes)
+
+    # text_mesh = trimesh.creation.extrude_polygon(letter_polygon, ENGRAVED_DEPTH)
+    # engraved_box = box.difference(text_mesh)
+
+    # meshes.append(engraved_box)
+    meshes.append(box)
 
     cylinder_top = trimesh.creation.cylinder(CYLINDER_RADIUS, BOX_WIDTH)
     cylinder_top.apply_transform(rotate_90)
