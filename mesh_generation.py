@@ -4,10 +4,11 @@ from planet_data import PLANETS
 from trimesh import Trimesh
 from orbital_math import calculate_position, calculate_orbital_angle
 
+# All values are in milimeters
+
 BOX_HEIGHT = 5
 BOX_WIDTH = 50
 BOX_LENGTH = 50
-BOX_OFFSET = [0,0,0]
 
 SUN_RADIUS = 5
 SUN_OFFSET = [0,0, BOX_HEIGHT]
@@ -19,13 +20,22 @@ ORBIT_RING_OFFSET = [0, 0, BOX_HEIGHT]
 
 PLANET_RADIUS = 0.85
 
-def place_at(mesh: Trimesh, offset=[0,0,0], height=0.0) -> Trimesh:
+def place_at(mesh: Trimesh, offset=None, height=0.0) -> Trimesh:
     mesh.apply_translation([0,0,(height/2)])
 
-    if offset[2] != 0:
+    if offset:
         mesh.apply_translation(offset)
 
     return mesh
+
+def create_base()->Trimesh:
+    meshes = []
+    box = place_at(trimesh.creation.box(extents=[BOX_WIDTH, BOX_LENGTH, BOX_HEIGHT]), None, BOX_HEIGHT)
+    meshes.append(box)
+
+    base = trimesh.util.concatenate(meshes)
+
+    return base
 
 def create_sun()-> Trimesh:
     shpere = trimesh.creation.uv_sphere(SUN_RADIUS)
@@ -56,7 +66,7 @@ def create_planet(planet_pos: tuple[float, float])-> Trimesh:
 def create_plaque(OUTPUT_PATH: str, plaque_date: str, days_elapsed: int):
     meshes = []
 
-    box = place_at(trimesh.creation.box(extents=[BOX_WIDTH, BOX_LENGTH, BOX_HEIGHT]), BOX_OFFSET, BOX_HEIGHT)
+    box = place_at(trimesh.creation.box(extents=[BOX_WIDTH, BOX_LENGTH, BOX_HEIGHT]), None, BOX_HEIGHT)
     meshes.append(box)
 
     sun = create_sun()
@@ -77,4 +87,4 @@ def create_plaque(OUTPUT_PATH: str, plaque_date: str, days_elapsed: int):
 
     base_mesh = trimesh.util.concatenate(meshes)
 
-    base_mesh.export(os.path.join(OUTPUT_PATH, f"test_mesh_{plaque_date}.stl"))
+    base_mesh.export(os.path.join(OUTPUT_PATH, f"plaque_for_{plaque_date}.stl"))

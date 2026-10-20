@@ -34,6 +34,12 @@ The script prompts for an output folder path at startup. It works with both nati
 ### Requirements
 
 - Python 3.x
+- matplotlib >= 3.11.2 # For visualization of the planets on a 2D graph (optional)
+- trimesh >= 5.1.0 # Creation of simple mesh objects
+- scipy >= 1.18.1 # The remaining allows modification of mesh objects
+- shapely >= 2.2.0
+- networkx >= 3.7
+- mapbox_earcut >= 2.1.0
 
 ### Installation
 
@@ -47,7 +53,7 @@ pip install -r requirements.txt
 
 `python main.py`
 
-You'll be prompted for a target year, month, and day. The script will calculate Earth's orbital position on that date and display it as a 2D Plot.
+You'll be prompted for directory to store the STL file. Then you'll be prompted for  a target year, month, and day. The script will calculate the planets' orbital positions on that date and export an STL file to your choice of directory.
 
 ## Roadmap
 
